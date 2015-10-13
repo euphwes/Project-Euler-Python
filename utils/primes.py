@@ -10,7 +10,7 @@ def is_prime(n):
     if n % 2 == 0:
         return False
 
-    for x in range(3, int(sqrt(n)), 2):
+    for x in range(3, int(sqrt(n)) + 1, 2):
         if n % x == 0:
             return False
 
@@ -37,3 +37,25 @@ def prime_factors(n):
         n = int(n / curr_factor)
 
     return factors
+
+#-------------------------------------------------------------------------------------------------
+
+def get_first_n_primes(n):
+    """ Returns a list of the first n primes. """
+
+    primes = [2]
+    curr_num = 3
+
+    while len(primes) < n:
+        if is_prime(curr_num):
+            primes.append(curr_num)
+        curr_num += 2
+
+    return primes
+
+#-------------------------------------------------------------------------------------------------
+
+def get_nth_prime(n):
+    """ Returns the nth prime number. """
+
+    return get_first_n_primes(n).pop()
