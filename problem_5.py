@@ -7,11 +7,11 @@ Smallest multiple
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 """
 
-from utils.timer import timeit
+from utils.timer import time_it
 
 #-------------------------------------------------------------------------------------------------
 
-@timeit
+@time_it
 def problem_5():
     not_factors_of_20_below_20  = list(reversed((3,6,7,8,9,11,12,13,14,15,16,17,18,19)))
     is_not_mult_of_all_below_20 = lambda x: any(x % y != 0 for y in not_factors_of_20_below_20)
@@ -27,5 +27,4 @@ def problem_5():
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print()
     problem_5()

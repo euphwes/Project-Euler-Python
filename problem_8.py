@@ -30,7 +30,7 @@ Find the thirteen adjacent digits in the 1000-digit number that have the greates
 What is the value of this product?
 """
 
-from utils.timer import timeit
+from utils.timer import time_it
 from functools import reduce
 
 #-------------------------------------------------------------------------------------------------
@@ -60,9 +60,8 @@ big_number = """
 
 #-------------------------------------------------------------------------------------------------
 
-@timeit
+@time_it
 def problem_8():
-
     largest_product = 0
     multiply = lambda x, y: int(x) * int(y)
     products = [reduce(multiply, big_number[i:i+13]) for i in range(len(big_number)-12)]
@@ -72,5 +71,4 @@ def problem_8():
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print()
     problem_8()

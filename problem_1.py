@@ -6,11 +6,11 @@ If we list all the natural numbers below 10 that are multiples of 3 or 5, we get
 The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.
 """
 
-from utils.timer import timeit
+from utils.timer import time_it
 
 #-------------------------------------------------------------------------------------------------
 
-@timeit
+@time_it
 def problem_1():
     is_mult_of_3_or_5 = lambda x: x % 3 == 0 or x % 5 == 0
     the_sum = sum(filter(is_mult_of_3_or_5, range(1000)))
@@ -19,5 +19,4 @@ def problem_1():
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print()
     problem_1()

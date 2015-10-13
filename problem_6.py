@@ -15,11 +15,11 @@ Find the difference between the sum of the squares of the first one hundred natu
 the square of the sum.
 """
 
-from utils.timer import timeit
+from utils.timer import time_it
 
 #-------------------------------------------------------------------------------------------------
 
-@timeit
+@time_it
 def problem_6():
     sum_of_squares = sum(pow(x,2) for x in range(1,101))
     square_of_sums = pow(sum(range(1,101)), 2)
@@ -29,5 +29,4 @@ def problem_6():
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print()
     problem_6()

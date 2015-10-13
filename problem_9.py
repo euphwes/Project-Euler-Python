@@ -11,7 +11,7 @@ There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 Find the product abc.
 """
 
-from utils.timer import timeit
+from utils.timer import time_it
 
 #-------------------------------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ def is_pythagorean_triplet(a,b,c):
     return pow(a,2) + pow(b,2) == pow(c,2)
 
 
-@timeit
+@time_it
 def problem_9():
     for a in range(3, 500):
         for b in range(3, 500):
@@ -32,5 +32,4 @@ def problem_9():
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print()
     problem_9()

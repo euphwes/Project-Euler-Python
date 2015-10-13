@@ -8,7 +8,7 @@ A palindromic number reads the same both ways. The largest palindrome made from 
 Find the largest palindrome made from the product of two 3-digit numbers.
 """
 
-from utils.timer import timeit
+from utils.timer import time_it
 
 #-------------------------------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ def is_palindome(val):
     return val == ''.join(reversed(val))
 
 
-@timeit
+@time_it
 def problem_4():
     three_digit_products = (int(x * y) for x in range(100,1000) for y in range(100,1000))
     palindrome_products = filter(is_palindome, three_digit_products)
@@ -30,5 +30,4 @@ def problem_4():
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print()
     problem_4()

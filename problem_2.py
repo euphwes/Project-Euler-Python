@@ -11,7 +11,7 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
 the sum of the even-valued terms.
 """
 
-from utils.timer import timeit
+from utils.timer import time_it
 
 #-------------------------------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ def fibonacci(max_value=None):
 
 #-------------------------------------------------------------------------------------------------
 
-@timeit
+@time_it
 def problem_2():
     is_even = lambda x: x % 2 == 0
     even_fib_sum = sum(filter(is_even, fibonacci(max_value=4000000)))
@@ -38,5 +38,4 @@ def problem_2():
 #-------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    print()
     problem_2()
