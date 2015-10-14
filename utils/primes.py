@@ -67,7 +67,7 @@ def get_primes_under(limit):
 
     # Initialize the list with bools indicating whether the nth element is prime or not
     # 0, 1 are not primes, 2 is prime, and from there we assume the rest are prime until we
-    # identify it as a multiple of a returned prime
+    # identify it as a multiple of an already-returned prime
     prime_candidates = [False, False] + ([True] * (limit-2))
 
     for num, is_prime in enumerate(prime_candidates):
