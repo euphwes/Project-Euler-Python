@@ -59,3 +59,22 @@ def get_nth_prime(n):
     """ Returns the nth prime number. """
 
     return get_first_n_primes(n).pop()
+
+#-------------------------------------------------------------------------------------------------
+
+def get_primes_under(limit):
+    """ A generator implementing the Sieve of Erasthones, yielding all primes under `limit`. """
+
+    # Initialize the list with bools indicating whether the nth element is prime or not
+    # 0, 1 are not primes, 2 is prime, and from there we assume the rest are prime until we
+    # identify it as a multiple of a returned prime
+    prime_candidates = [False, False] + ([True] * (limit-2))
+
+    for num, is_prime in enumerate(prime_candidates):
+        if is_prime:
+            yield num
+
+            # after we yield a number we know is prime, mark all multiples of it as non-prime
+            # so we don't return those
+            for i in range(num*num, limit, num):
+                prime_candidates[i] = False
