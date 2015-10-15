@@ -22,27 +22,43 @@ the first triangle number to have over five hundred divisors?
 """
 
 from utils.sequences import triangle_numbers
+from utils.primes import prime_factors
 from utils.timer import time_it
-from math import ceil
+
+from collections import Counter
+
+from functools import reduce
 
 #-------------------------------------------------------------------------------------------------
 
+def count_factors(n):
+    """ Counts the total number of divisors/factors of the provided number.
 
-def divisors_of(n):
-    """ Returns a list of all divisors of n. """
+    Here's the gist from http://mathforum.org/library/drmath/view/55843.html:
 
-    divisors = [1, n]
-    for x in range(2, ceil(n/2) + 1):
-        if n % x == 0:
-            divisors.append(x)
+    A number n can be represented as:  n = x^a + y^b + z^c + ...
+    where x, y, z ... are the prime factors of n, and a, b, c, ... are their multiplicities.
 
-    return divisors
+    The number of total divisors of n = (a+1) * (b+1) * (c+1) * ...
+    """
+
+    # builds a dict-like Counter object, where the keys are the distinct prime factors, and the
+    # values are the multiplicity of that factor (aka, how many of that distinct factor were
+    # present in the prime factorization)
+    prime_factor_counter = Counter(prime_factors(n))
+
+    # get a list of the multiplicities of the prime factors + 1
+    prime_factor_multiplicities_plus_one = [(x + 1) for _, x in prime_factor_counter.most_common()]
+
+    # multiply those all together and return
+    multiply = lambda x, y: x * y
+    return reduce(multiply, prime_factor_multiplicities_plus_one, 1)
 
 
 @time_it
 def problem_12():
     for num in triangle_numbers():
-        if len(divisors_of(num)) > 500:
+        if count_factors(num) > 500:
             print(num)
             break
 

@@ -19,22 +19,20 @@ def is_prime(n):
 #-------------------------------------------------------------------------------------------------
 
 def prime_factors(n):
-    """ Returns a list of the prime factors of a given number. """
+    """ Returns a list of the prime factors of n. """
 
     factors = list()
 
-    while True:
-        curr_factor = 2
-
-        if is_prime(n):
-            factors.append(n)
-            break
-
-        while not is_prime(curr_factor) or not n % curr_factor == 0:
-            curr_factor += 1
-
-        factors.append(curr_factor)
-        n = int(n / curr_factor)
+    test = 2
+    while test <= n:
+        if n % test == 0:
+            n /= test
+            factors.append(test)
+        else:
+            if test == 2:
+                test += 1
+            else:
+                test += 2
 
     return factors
 
