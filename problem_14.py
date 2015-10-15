@@ -25,18 +25,38 @@ from utils.sequences import collatz_sequence
 
 #-------------------------------------------------------------------------------------------------
 
+collatz_length_dict = dict()
+
+def get_length_of_collatz_sequence(n):
+    """ Iterates through a Collatz Sequence starting with the number `n`, counting the number of
+    elements along the way. When the sequence is complete, the length of the sequence starting
+    with `n` is stored in a dictionary (key = starting num, value = length).num
+
+    To improve performance, while counting the elements in the sequence, the dictionary is checked
+    to see if we have previously encountered a sequence starting with the current number in the
+    sequence we are currently checking. If so, we can store the current length + the length of
+    the previously seen sequence, and return that. Saves us from having to fully iterate through
+    the sequence if we known the length of a subsequence. """
+
+    count = 0
+    for num in collatz_sequence(n):
+        if num in collatz_length_dict:
+            collatz_length_dict[n] = collatz_length_dict[num] + count
+            return collatz_length_dict[n]
+        count += 1
+
+    collatz_length_dict[n] = count
+    return count
+
+
 @time_it
 def problem_14():
-    winning_number = None
-    winning_length = 0
+    f = get_length_of_collatz_sequence
+    sequence_lengths = [(x, f(x)) for x in range(3,1000000)]
 
-    for x in range(3,1000000):
-        length = len(list(collatz_sequence(x)))
-        if length > winning_length:
-            winning_length = length
-            winning_number = x
-
-    print(winning_number)
+    # find the tuple in the list with the maximum 2nd element (the length of the sequence), and
+    # print out the 1st element in that tuple (the starting value of that sequence)
+    print(max(sequence_lengths, key=lambda x: x[1])[0])
 
 #-------------------------------------------------------------------------------------------------
 
