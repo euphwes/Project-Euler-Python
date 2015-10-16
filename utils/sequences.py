@@ -1,5 +1,17 @@
 """ Utility module for common sequences used in Project Euler. """
 
+from itertools import islice
+
+#-------------------------------------------------------------------------------------------------
+
+def fibonacci():
+    """ A generator function yields which the Fibonacci Sequence. """
+
+    a, b = 1, 1
+    while True:
+        yield a
+        a, b = b, a+b
+
 #-------------------------------------------------------------------------------------------------
 
 def bitstrings_of_length(n):
