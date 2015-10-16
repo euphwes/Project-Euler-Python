@@ -2,6 +2,16 @@
 
 #-------------------------------------------------------------------------------------------------
 
+def bitstrings_of_length(n):
+    """ A generator function which yields all bitstrings of length `n`. """
+
+    binary_format_string = '{' + ':0{}b'.format(n) + '}'
+    binary = lambda x: binary_format_string.format(x)
+
+    yield from (binary(x) for x in range(pow(2,n)))
+
+#-------------------------------------------------------------------------------------------------
+
 def triangle_numbers():
     """ A generator function yielding the triangle numbers. The nth triangle number is the sum
     of the natural numbers from 1 to n. """
