@@ -25,7 +25,7 @@ from utils.math import long_divison
 
 @time_it
 def problem_26():
-    print(long_divison(1, 7))
+    print(long_divison(1, 7, detect_repetition=True))
 
 #-------------------------------------------------------------------------------------------------
 

@@ -26,7 +26,7 @@ def proper_divisors(n):
 
 #-------------------------------------------------------------------------------------------------
 
-def long_divison(n, d, digit_limit=10):
+def long_divison(n, d, digit_limit=10, detect_repetition=False):
     """ Calculates n/d (numerator/denominator) by long division. Returns a string representation
     of the result, up to `digit_limit` digits. """
 
@@ -48,7 +48,28 @@ def long_divison(n, d, digit_limit=10):
     # Holds the decimal portion's digits of the solution. Convert this into a string when returned
     decimals = ''
 
-    while len(decimals) < digit_limit:
+    # A dictionary which holds the previous "states" of the solution. The key is the numerator,
+    # and the value is the len of the decimal portion where that numerator was first found
+    states = dict()
+
+    while detect_repetition or (len(decimals) < digit_limit):
+
+        # If the detect_repetition flag is set, keep track of previous states of the division
+        # and identify when we've reached a cycle. Return the solution, with the repeated part
+        # inside brackets
+        if detect_repetition:
+            if n not in states:
+                states[n] = len(decimals)
+            else:
+                # starting index for the repeating part
+                i = states[n]
+
+                # extract the repeating part and the non-repeating part from the decimals, so we
+                # can format the returned solution correctly
+                non_repeating_part = decimals[:i]
+                repeating_part = decimals[i:]
+                return '{}.{}[{}]'.format(whole, non_repeating_part, repeating_part)
+
         # Continue long division like described above. Perform integer division on current
         # numerator and denominator, get result, and figure out new numerator based on difference
         i = n // d
