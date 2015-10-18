@@ -25,7 +25,26 @@ from utils.math import long_divison
 
 @time_it
 def problem_26():
-    print(long_divison(1, 7, detect_repetition=True))
+    best_repeating_length = 0
+    winning_denominator = None
+
+    for denominator in range(1, 1000):
+        result = long_divison(1, denominator, detect_repetition=True)
+
+        # if '[' is in the result, we know there was a repeating portion
+        if '[' in result:
+
+            # get the indices where we should slice the result string to get the substring inside
+            # the brackets (aka the repeating portion)
+            i, j = result.find('[') + 1, result.find(']')
+
+            repeating = result[i:j]
+
+            if len(repeating) > best_repeating_length:
+                best_repeating_length = len(repeating)
+                winning_denominator = denominator
+
+    print(winning_denominator)
 
 #-------------------------------------------------------------------------------------------------
 
