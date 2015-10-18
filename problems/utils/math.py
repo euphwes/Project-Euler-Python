@@ -28,7 +28,10 @@ def proper_divisors(n):
 
 def long_divison(n, d, digit_limit=10, detect_repetition=False):
     """ Calculates n/d (numerator/denominator) by long division. Returns a string representation
-    of the result, up to `digit_limit` digits. """
+    of the result, up to `digit_limit` digits. if `detect_repetition` is set to True, any digit
+    limit is ignored, and the calculation is continued until the division is complete, or until a
+    cycle is found in the decimal portion of the solution. If a cycle is found, the solution is
+    returned with the repeated part of the solution inside brackets. """
 
     # Performs integer division on n / d to get the whole number part of the solution
     # Calculate the "new numerator" to be used in the next step of the long division, by taking
@@ -53,7 +56,6 @@ def long_divison(n, d, digit_limit=10, detect_repetition=False):
     states = dict()
 
     while detect_repetition or (len(decimals) < digit_limit):
-
         # If the detect_repetition flag is set, keep track of previous states of the division
         # and identify when we've reached a cycle. Return the solution, with the repeated part
         # inside brackets
