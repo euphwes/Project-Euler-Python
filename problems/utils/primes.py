@@ -7,6 +7,9 @@ from math import ceil, sqrt
 def is_prime(n):
     """ Returns whether a given number is prime. """
 
+    if n <= 1:
+        return False
+
     if n % 2 == 0:
         return False
 
