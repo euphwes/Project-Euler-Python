@@ -3,11 +3,12 @@ anywhere else. """
 
 #-------------------------------------------------------------------------------------------------
 
-def is_palindome(val):
-    """ Returns whether or not a value is a palindome. For non-string arguments, they are first
-    converted to their string representation. """
+# Convert a decimal integer to binary. Remove leading '0b' and just return bitstring.
+# Ensure the argument is a decimal integer. This will work on ints and strings.
+binary = lambda n: bin(int(n))[2:]
 
-    if type(val) is not str:
-        val = str(val)
-    return val == ''.join(reversed(val))
+# Returns whether or not a value is a palindome. Coerce the argument to a string. This will work
+# on ints and strings
+is_palindome = lambda n: str(n) == ''.join(reversed(str(n)))
 
+#-------------------------------------------------------------------------------------------------
