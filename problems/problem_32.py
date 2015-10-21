@@ -15,14 +15,10 @@ HINT: Some products can be obtained in more than one way so be sure to only incl
 your sum.
 """
 
+from utils import is_pandigital
 from utils.timer import time_it
 
 #-------------------------------------------------------------------------------------------------
-
-def is_pandigital(test):
-    """ Returns True if the argument contains every digit 1-9 exactly once, or False otherwise."""
-    return (len(test) == 9) and (set('123456789') == set(test))
-
 
 @time_it
 def problem_32():

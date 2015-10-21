@@ -12,3 +12,9 @@ binary = lambda n: bin(int(n))[2:]
 is_palindome = lambda n: str(n) == ''.join(reversed(str(n)))
 
 #-------------------------------------------------------------------------------------------------
+
+def is_pandigital(n):
+    """ Returns True if the n contains every digit 1-9 exactly once, or False otherwise. Ensure n
+    is a string first. Works on ints and strings. """
+    n = str(n)
+    return (len(n) == 9) and (set('123456789') == set(n))
