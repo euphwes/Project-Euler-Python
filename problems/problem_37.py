@@ -21,6 +21,9 @@ def is_truncatable(n):
     """ Returns True if the provided prime number remains prime after its digits are truncated
     both from the left and from the right, and it remains prime at every step. """
 
+    if any(x in str(n) for x in ('4', '6', '8')):
+        return False
+
     # Utility lambda to turn a list of digit characters back into an int
     make_int = lambda x: int(''.join(x))
 
