@@ -13,21 +13,24 @@ Find the next triangle number that is also pentagonal and hexagonal.
 """
 
 from utils.timer import time_it
-from utils.sequences import triangle_numbers, is_pentagonal, is_hexagonal
+from utils.sequences import hexagonal_numbers, is_pentagonal
 
 #-------------------------------------------------------------------------------------------------
 
 @time_it
 def problem_45():
 
-    # get an iterator for triangle numbers, and skip them up to 40755, since we want to identify
+    # We can ignore the triangle number aspect of the problem altogether, since all hexagonal
+    # numbers are also triangular numbers
+
+    # get an iterator for hexagonal numbers, and skip them up to 40755, since we want to identify
     # a number after that point
-    triangles = triangle_numbers()
-    while next(triangles) < 40755:
+    hexagonals = hexagonal_numbers()
+    while next(hexagonals) < 40755:
         pass
 
-    for n in triangles:
-        if is_pentagonal(n) and is_hexagonal(n):
+    for n in hexagonals:
+        if is_pentagonal(n):
             print(n)
             break
 
