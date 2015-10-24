@@ -37,15 +37,37 @@ def can_be_limited(function):
 
 #-------------------------------------------------------------------------------------------------
 
+def quadratic(a,b,c):
+    """ Solves the quadratic equation given a, b, and c, returning the positive root. """
+    return ((-b) + sqrt(b**2 - 4*a*c))/(2*a)
+
+#-------------------------------------------------------------------------------------------------
+
+def is_hexagonal(n):
+    """ Returns True if n is a hexagonal number, otherwise returns False. """
+    return quadratic(2, -1, -n) % 1 == 0
+
+
+@can_be_limited
+def hexagonal_numbers():
+    """ A generator function yielding the hexagonal numbers. The nth hexagonal number is defined
+    by this formula:  Hn=n(2n−1) """
+
+    n = 1
+    while True:
+        yield int(n * (2*n - 1))
+        n += 1
+
+#-------------------------------------------------------------------------------------------------
+
 def is_pentagonal(n):
     """ Returns True if n is a pentagonal number, otherwise returns False. """
-    a = (sqrt(24*n + 1) + 1) / 6
-    return a >= 0 and (a % 1 == 0)
+    return quadratic(1.5, -(1/2), -n) % 1 == 0
 
 
 @can_be_limited
 def pentagonal_numbers():
-    """ A generator function yielding the pentagonal numbers. The nth triangle number is defined
+    """ A generator function yielding the pentagonal numbers. The nth pentagonal number is defined
     by this formula: Pn=n(3n−1)/2 """
 
     n = 1
