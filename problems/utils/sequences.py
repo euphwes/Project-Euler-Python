@@ -37,8 +37,23 @@ def can_be_limited(function):
 #-------------------------------------------------------------------------------------------------
 
 @can_be_limited
+def champernownes_constant():
+    """ A generator function which yields Champernowne's Constant, 1 decimal digit at a time.
+    Champernowne's Constant is an irrational decimal fraction is created by concatenating the
+    positive integers: 0.123456789101112131415161718192021... """
+
+    n = 1
+    while True:
+        for digit in str(n):
+            yield digit
+        n += 1
+
+
+#-------------------------------------------------------------------------------------------------
+
+@can_be_limited
 def fibonacci():
-    """ A generator function yields which the Fibonacci Sequence. """
+    """ A generator function which yields which the Fibonacci Sequence. """
 
     a, b = 1, 1
     while True:
