@@ -1,6 +1,7 @@
 """ Utility module for common sequences used in Project Euler. """
 
 from itertools import islice
+from math import sqrt
 
 #-------------------------------------------------------------------------------------------------
 
@@ -33,6 +34,24 @@ def can_be_limited(function):
             yield from gen
 
     return limited
+
+#-------------------------------------------------------------------------------------------------
+
+def is_pentagonal(n):
+    """ Returns True if n is a pentagonal number, otherwise returns False. """
+    a = (sqrt(24*n + 1) + 1) / 6
+    return a >= 0 and (a % 1 == 0)
+
+
+@can_be_limited
+def pentagonal_numbers():
+    """ A generator function yielding the pentagonal numbers. The nth triangle number is defined
+    by this formula: Pn=n(3n−1)/2 """
+
+    n = 1
+    while True:
+        yield int(n*(3*n - 1)/2)
+        n += 1
 
 #-------------------------------------------------------------------------------------------------
 
