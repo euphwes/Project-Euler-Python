@@ -32,35 +32,46 @@ def mask_value(value, mask):
 
 
 def get_wildcard_variants(n):
-    """ A generator function which takes an input string, and yields every possible 'wildcarded'
-    variant of that input. Here, a 'wildcard' variant is a modification of that input where 1
-    or more characters are replaced with asterisks. Don't yield a variant that has no wildcards,
-    or is composed of entirely wildcards. """
-
-    all_wildcards = '*' * len(n)
+    """ A generator function which takes an input string, and yields 'wildcarded' variants of that
+    input. Here, a 'wildcard' variant is a modification of that input where 1 or more characters
+    are replaced with asterisks. """
 
     for mask in bitstrings_of_length(len(n)):
-        wildcard_variant = mask_value(n, mask)
-        if not (wildcard_variant in (n, all_wildcards)):
-            yield wildcard_variant
+
+        # If the last character of a wildcard variant is a wildcard, we can eliminate it as
+        # a possibility, because that wildcard will take on all even digits, making the number
+        # itself even. Since we're looking for a family of 8, we can't afford to eliminate 4
+        # possibilities
+        if mask[-1] == '1':
+            continue
+
+        # We have to replace digits in groups of 3, or at least 3 of the new numbers after digit
+        # substituion will be divisible by 3
+        if mask.count('1') % 3 != 0:
+            continue
+
+        # Don't yield a variant that has no wildcards, or is composed of entirely wildcards
+        if mask.count('1') in (0, len(n)):
+            continue
+
+        yield mask_value(n, mask)
 
 
 @time_it
 def problem_51():
 
-    for prime in map(str, get_primes_under(10**6)):
+    # make digits a list, since we're looping through it a lot
+    # primes can be a generator, since we're only looping it once
+    digits = list(map(str, range(10)))
+    primes = map(str, get_primes_under(10**6))
+
+    for prime in primes:
         for wildcard in get_wildcard_variants(prime):
 
-            # If the last character of a wildcard variant is a wildcard, we can eliminate it as
-            # a possibility, because that wildcard will take on all even digits, making the number
-            # itself even. Since we're looking for a family of 8, we can't afford to eliminate 4
-            # possibilities
-            if wildcard[-1] == '*':
-                continue
-
             family = list()
+            losers = list()
 
-            for digit in map(str, range(10)):
+            for digit in digits:
 
                 # Substitute all wildcards with the digit we're currently trying
                 subbed = wildcard.replace('*', digit)
@@ -71,9 +82,17 @@ def problem_51():
                 if subbed[0] == '0':
                     continue
 
+                subbed = int(subbed)
+
                 # If the subbed number is prime, record it as a member of the family
-                if is_prime(int(subbed)):
-                    family.append(int(subbed))
+                # If there are more than 2 numbers which were not prime for this variant, we can't
+                # achieve 8 members in the family, so just skip to the next wildcard variant
+                if is_prime(subbed):
+                    family.append(subbed)
+                else:
+                    losers.append(subbed)
+                    if len(losers) > 2:
+                        break
 
             # After we're done with the wildcard variant, check to see if the family has 8 members
             # If so, winner winner, chicken dinner!
