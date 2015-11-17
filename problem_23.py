@@ -34,11 +34,20 @@ def is_abundant(n):
 
 @time_it
 def problem_23():
+    """ We can set the upper limit for abundant-checking to 20161, since we know this is the
+    largest number which cannot be expressed as the sum of two abundant numbers. """
 
-    abundants = list(filter(is_abundant, range(12,28124)))
-    abundant_sums = set(a+b for a, b in combinations_with_replacement(abundants, 2))
+    abundants = list(filter(is_abundant, range(12,20162)))
 
-    possibilities = set(range(1,28124))
+    abundant_sums = set()
+    for a in abundants:
+        for b in abundants:
+            if a + b < 20162:
+                abundant_sums.add(a + b)
+            else:
+                break
+
+    possibilities = set(range(1,20162))
     print(sum(possibilities - abundant_sums))
 
 #-------------------------------------------------------------------------------------------------
