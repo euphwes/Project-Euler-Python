@@ -3,6 +3,30 @@ anywhere else. """
 
 #-------------------------------------------------------------------------------------------------
 
+def memoize(function):
+    """ A decorator function which memoizes a function with any number of positional and keyword
+    arguments. """
+
+    cache = dict()
+
+    def memoized(*args, **kwargs):
+        """ The memoized version of the function. Takes all args and kwargs, and converts them
+        into a single tuple. This tuple is used as the key to the cache. If the tuple exists in
+        the cache's keys, the cached value is returned. If not, the function is executed, the
+        returned value is cached for later retrieval, and then returned. """
+
+        arguments = args + tuple((a, b) for a, b in kwargs.items())
+
+        if arguments not in cache:
+            cache[arguments] = function(*args, **kwargs)
+
+        return cache[arguments]
+
+    memoized.__doc__ = function.__doc__
+    return memoized
+
+#-------------------------------------------------------------------------------------------------
+
 # Convert a decimal integer to binary. Remove leading '0b' and just return bitstring.
 # Ensure the argument is a decimal integer. This will work on ints and strings.
 binary = lambda n: bin(int(n))[2:]
